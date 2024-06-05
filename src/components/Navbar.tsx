@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { Menu, MenuIcon } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import { Drawer, DrawerContent, DrawerTrigger } from "./ui/drawer";
 import { motion } from "framer-motion";
 
@@ -15,6 +15,7 @@ export default function Navbar() {
     { name: "Forum", link: "/forum" },
     { name: "Artikel", link: "/artikel" },
     { name: "Profile", link: "/profile" },
+    { name: "Analis", link: "/face-scanner" },
   ];
   return (
     <motion.nav
@@ -91,46 +92,3 @@ export default function Navbar() {
     </motion.nav>
   );
 }
-
-const AnimatedNavList = ({
-  navlist,
-  index,
-}: {
-  navlist: { name: string; link: string };
-  index: number;
-}) => {
-  return (
-    <motion.li
-      key={index}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }} // Delay menerapkan stagger effect
-    >
-      <NavLink
-        to={navlist.link}
-        className={({ isActive }) =>
-          cn(
-            "relative inline-block text-xl text-wild-sand-50 transition-all after:absolute after:bottom-0 after:left-0 after:w-0 after:transition-all after:content-[''] hover:after:h-[2px] hover:after:w-full hover:after:bg-laser-500",
-            isActive &&
-              "font-bold after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-laser-500 after:transition-all after:content-['']"
-          )
-        }>
-        {navlist.name}
-      </NavLink>
-    </motion.li>
-  );
-};
-
-const AnimatedNavListContainer = ({
-  navlists,
-}: {
-  navlists: { name: string; link: string }[];
-}) => {
-  return (
-    <ul className="flex items-center space-x-4">
-      {navlists.map((navlist, index) => (
-        <AnimatedNavList key={index} navlist={navlist} index={index} />
-      ))}
-    </ul>
-  );
-};
